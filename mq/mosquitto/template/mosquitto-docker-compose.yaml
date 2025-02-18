@@ -1,0 +1,10 @@
+services:
+  mosquitto:
+    extends:
+      file: ../fragments/mosquitto-volume.yaml
+      service: mosquitto
+    image: eclipse-mosquitto:${MOSQUITTO_IMAGE_TAG:-latest}
+    container_name: mqtt-mosquitto-${MOSQUITTO_IMAGE_TAG:-latest}
+    ports:
+      - ${MOSQUITTO_PORT:-1883}:1883
+    restart: always

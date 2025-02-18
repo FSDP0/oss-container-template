@@ -1,0 +1,16 @@
+x-mosquitto-volume:
+  - &mosquitto-vol-conf
+    ./config:/mosquitto/config
+
+  - &mosquitto-vol-data
+    ./data:/mosquitto/data
+
+  - &mosquitto-vol-log
+    ./log:/mosquitto/log
+
+services:
+  mosquitto:
+    volumes:
+      - *mosquitto-vol-conf
+      - *mosquitto-vol-data
+      - *mosquitto-vol-log
