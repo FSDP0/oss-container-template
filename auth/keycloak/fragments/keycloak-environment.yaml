@@ -1,0 +1,32 @@
+x-keycloak-env:
+  - &keycloak-env-hostname-conf
+    KC_HOSTNAME: ${KEYCLOAK_HOSTNAME:-localhost}
+    KC_HOSTNAME_STRICT: ${KEYCLOAK_HOSTNAME_STRICT:-false}
+
+  - &keycloak-env-network-conf
+    KC_HTTP_ENABLED: ${KEYCLOAK_HTTP_ENABLED:-false}
+
+  - &keycloak-env-database-conf
+    KC_DB: ${KEYCLOAK_DATABASE_TYPE}
+    KC_DB_URL: ${KEYCLOAK_DATABASE_URL}
+    KC_DB_URL_HOST: ${KEYCLOAK_DATABASE_HOSTNAME:-host.docker.internal}
+    KC_DB_URL_PORT: ${KEYCLOAK_DATABASE_PORT}
+    KC_DB_USERNAME: ${KEYCLOAK_DATABASE_USERNAME}
+    KC_DB_PASSWORD: ${KEYCLOAK_DATABASE_PASSWORD}
+
+  - &keycloak-env-healthz-conf
+    KC_HEALTH_ENABLED: ${KEYCLOAK_HEALTHZ_ENABLED:-true}
+
+  - &keycloak-env-bootstrap-ui-admin-conf
+    KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_BOOTSTRAP_UI_ADMIN_USERNAME}
+
+services:
+  keycloak:
+    environment: 
+      <<: [
+        *keycloak-env-hostname-conf,
+        *keycloak-env-network-conf,
+        *keycloak-env-database-conf,
+        *keycloak-env-healthz-conf,
+        *keycloak-env-bootstrap-ui-admin-conf
+      ]
