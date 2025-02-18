@@ -1,0 +1,12 @@
+x-jenkins-volume:
+  - &jenkins-env-home 
+    ./var/jenkins_home:/var/jenkins_home
+
+  - &jenkins-env-docker-daemon-mount
+    /var/run/docker.sock:/var/run/docker.sock
+
+services:
+  jenkins:
+    volumes:
+      - *jenkins-env-home
+      - *jenkins-env-docker-daemon-mount
