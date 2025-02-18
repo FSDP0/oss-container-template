@@ -1,0 +1,12 @@
+x-postgres-volume:
+  - &postgres-vol-data
+    ./data:/var/lib/postgresql/data
+
+  - &postgres-vol-sql
+    ./sql/ddl:/docker-entrypoint-initdb.d
+
+services:
+  postgres:
+    volumes:
+      - *postgres-vol-data
+      - *postgres-vol-sql

@@ -1,0 +1,18 @@
+x-postgres-enviroment:
+  - &postgres-env-auth
+    POSTGRES_USER: 
+    POSTGRES_PASSWORD:
+  
+  - &postgres-env-database
+    POSTGRES_DB:
+
+  - &postgres-env-persist
+    PGDATA:
+
+services:
+  postgres:
+    environment:
+      <<: [
+        *postgres-env-auth,
+        *postgres-env-database
+      ]

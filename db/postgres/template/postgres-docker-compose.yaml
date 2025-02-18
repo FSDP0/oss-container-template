@@ -1,0 +1,29 @@
+x-postgres-enviroment:
+  - &postgres-env-auth
+    POSTGRES_USER: ${POSTGRES_CONN_USERNAME}
+    POSTGRES_PASSWORD: ${POSTGRES_CONN_PASSWORD}
+  
+  - &postgres-env-database
+    POSTGRES_DB: ${POSTGRES_INIT_DATABASE_NAME:-postgres}
+
+x-postgres-volume:
+  - &postgres-vol-data
+    ./data:/var/lib/postgresql/data
+
+  - &postgres-vol-sql
+    ./sql/ddl:/docker-entrypoint-initdb.d
+
+services:
+  postgres:
+    image: postgres:${POSTGRES_IMAGE_TAG:-latest}
+    container_name: ${POSTGRES_CONTAINER_NAME:-db-postgres}-${POSTGRES_IMAGE_TAG:-latest}
+    ports:
+      - ${POSTGRES_PORT:-5432}:5432
+    environment:
+      <<: [
+        *postgres-env-auth,
+        *postgres-env-database
+      ]
+    volumes:
+      - *postgres-vol-data
+    restart: always
